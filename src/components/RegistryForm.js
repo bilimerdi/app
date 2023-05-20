@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import "./RegistryForm.css";
+import { useNavigate } from "react-router";
 
 const RegistryForm = () => {
   const [fullName, setFullName] = useState();
@@ -14,6 +15,29 @@ const RegistryForm = () => {
   const [assistant, setAssistant] = useState();
   const [detail, setDetail] = useState();
   const [diagnosis, setDiagnosis] = useState();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = {
+      fullName: fullName,
+      tc: tc,
+      assistant: assistant,
+      detail: detail,
+      diagnosis: diagnosis,
+    };
+    fetch("http://localhost:8080/user/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((response) => response.json());
+
+    navigate("/");
+  };
+
   return (
     <Stack
       sx={{
@@ -29,7 +53,7 @@ const RegistryForm = () => {
         borderRadius: "2%",
       }}
     >
-      <FormControl>
+      <form onSubmit={handleSubmit}>
         <Typography align="center" variant="h5">
           Hasta Kayıt Formu
         </Typography>
@@ -98,7 +122,7 @@ const RegistryForm = () => {
         >
           Kaydet
         </Button>
-      </FormControl>
+      </form>
     </Stack>
   );
 };
