@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  Button,
-  TextField,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, TextField, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import "./RegistryForm.css";
 import { useNavigate } from "react-router";
