@@ -1,7 +1,13 @@
 import React from "react";
+import { Route, Routes } from "react-router";
+import RegistryForm from "./components/RegistryForm";
 
 const App = () => {
-  return <div>Merhabalar kullanıcı</div>;
+  return (
+    <Routes>
+      <Route path="/" element={<RegistryForm></RegistryForm>}></Route>
+    </Routes>
+  );
 };
 
 export default App;
