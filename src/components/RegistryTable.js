@@ -14,12 +14,20 @@ const editUser = (e, row) => {
   return null;
 };
 
-const deleteUser = (e, row) => {
-  return null;
-};
-
 const RegistryTable = () => {
   const [users, setUsers] = useState([]);
+
+  const deleteUser = (e, row) => {
+    fetch(`http://localhost:8080/user/remove/${row.id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then(() => {
+        fetch("http://localhost:8080/user/getAll")
+          .then((response) => response.json())
+          .then((json) => setUsers(json));
+      });
+  };
 
   useEffect(() => {
     fetch("http://localhost:8080/user/getAll")
@@ -38,7 +46,7 @@ const RegistryTable = () => {
     {
       field: "Edit",
       headerName: "Edit",
-      width: 150,
+      width: 200,
       renderCell: (params) => {
         return (
           <Stack direction="row">
@@ -58,7 +66,7 @@ const RegistryTable = () => {
   ];
   return (
     <Stack>
-      <DataGrid columns={columns} rows={users} />
+      <DataGrid columns={columns} rows={users} loading={!users.length} />
     </Stack>
   );
 };
