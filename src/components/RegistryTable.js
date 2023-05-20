@@ -51,13 +51,16 @@ const RegistryTable = () => {
         return (
           <Stack direction="row">
             <Button onClick={(e) => openUser(e, params.row)}>
-              <SvgIcon color="action" component={InfoIcon}></SvgIcon>
+              <SvgIcon sx={{ color: "#d4a373" }} component={InfoIcon}></SvgIcon>
             </Button>
             <Button onClick={(e) => editUser(e, params.row)}>
-              <SvgIcon color="action" component={EditIcon}></SvgIcon>
+              <SvgIcon sx={{ color: "#d4a373" }} component={EditIcon}></SvgIcon>
             </Button>
             <Button onClick={(e) => deleteUser(e, params.row)}>
-              <SvgIcon color="action" component={DeleteIcon}></SvgIcon>
+              <SvgIcon
+                sx={{ color: "#d4a373" }}
+                component={DeleteIcon}
+              ></SvgIcon>
             </Button>
           </Stack>
         );
@@ -65,7 +68,7 @@ const RegistryTable = () => {
     },
   ];
   return (
-    <Stack>
+    <Stack sx={{ backgroundColor: "#faedcd" }}>
       <DataGrid columns={columns} rows={users} loading={!users.length} />
     </Stack>
   );
