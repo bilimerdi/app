@@ -9,10 +9,6 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { useNavigate } from "react-router";
 
-const openUser = (e, row) => {
-  return null;
-};
-
 const editUser = (e, row) => {
   return null;
 };
@@ -35,6 +31,10 @@ const RegistryTable = () => {
 
   const goToForm = () => {
     navigate("/Form");
+  };
+
+  const openUser = (e, row) => {
+    navigate("/Detail", { state: { value: row } });
   };
 
   const descSort = () => {
