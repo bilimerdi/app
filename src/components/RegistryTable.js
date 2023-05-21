@@ -93,50 +93,63 @@ const RegistryTable = () => {
   ];
   return (
     <Stack
+      maxWidth="100%"
+      maxHeight="100%"
       sx={{
-        backgroundColor: "#faedcd",
-        width: "1200px",
-        textAlign: "left",
-        margin: "auto",
-        marginTop: 10,
-        padding: 5,
+        backgroundColor: "#d4a373",
+        width: "100%",
+        height: "100%",
+        position: "fixed",
+        top: 0,
+        left: 0,
       }}
     >
-      <Stack alignItems="center">
-        <Typography
-          sx={{ width: 400, height: 50, color: "#d4a373", fontSize: 30 }}
-        >
-          HASTALAR TABLOSU
-        </Typography>
+      <Stack
+        sx={{
+          backgroundColor: "#faedcd",
+          width: "1200px",
+          textAlign: "left",
+          margin: "auto",
+          marginTop: 10,
+          padding: 5,
+        }}
+      >
+        <Stack alignItems="center">
+          <Typography
+            sx={{ width: 400, height: 50, color: "#d4a373", fontSize: 30 }}
+          >
+            HASTALAR TABLOSU
+          </Typography>
+        </Stack>
+        <Stack direction="row" justifyContent="flex-end">
+          <Button title="İlk kayıta göre sırala" onClick={ascSort}>
+            <SvgIcon
+              component={ArrowUpwardIcon}
+              sx={{ color: "#d4a373" }}
+            ></SvgIcon>
+          </Button>
+          <Button title="Son kayıta göre sırala" onClick={descSort}>
+            <SvgIcon
+              component={ArrowDownwardIcon}
+              sx={{ color: "#d4a373" }}
+            ></SvgIcon>
+          </Button>
+          <Button
+            onClick={goToForm}
+            sx={{
+              width: 200,
+              height: 50,
+              backgroundColor: "#d4a373",
+              color: "black",
+              marginTop: 2,
+              marginBottom: 3,
+            }}
+          >
+            Yeni Hasta Kaydı Ekle
+          </Button>
+        </Stack>
+        <DataGrid columns={columns} rows={users} loading={!users.length} />
       </Stack>
-      <Stack direction="row" justifyContent="flex-end">
-        <Button title="İlk kayıta göre sırala" onClick={ascSort}>
-          <SvgIcon
-            component={ArrowUpwardIcon}
-            sx={{ color: "#d4a373" }}
-          ></SvgIcon>
-        </Button>
-        <Button title="Son kayıta göre sırala" onClick={descSort}>
-          <SvgIcon
-            component={ArrowDownwardIcon}
-            sx={{ color: "#d4a373" }}
-          ></SvgIcon>
-        </Button>
-        <Button
-          onClick={goToForm}
-          sx={{
-            width: 200,
-            height: 50,
-            backgroundColor: "#d4a373",
-            color: "black",
-            marginTop: 2,
-            marginBottom: 3,
-          }}
-        >
-          Yeni Hasta Kaydı Ekle
-        </Button>
-      </Stack>
-      <DataGrid columns={columns} rows={users} loading={!users.length} />
     </Stack>
   );
 };
