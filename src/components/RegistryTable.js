@@ -16,6 +16,7 @@ const editUser = (e, row) => {
 const RegistryTable = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const pageSize = 5;
 
   const deleteUser = (e, row) => {
     fetch(`http://localhost:8080/user/remove/${row.id}`, {
@@ -148,7 +149,15 @@ const RegistryTable = () => {
             Yeni Hasta Kaydı Ekle
           </Button>
         </Stack>
-        <DataGrid columns={columns} rows={users} loading={!users.length} />
+        <DataGrid
+          sx={{ maxHeight: 400 }}
+          columns={columns}
+          rows={users}
+          loading={!users.length}
+          pagination={true}
+          pageSizeOptions={[1]}
+          pageSize={pageSize}
+        />
       </Stack>
     </Stack>
   );
