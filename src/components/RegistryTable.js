@@ -5,6 +5,8 @@ import { Button, Stack, SvgIcon, Typography } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { useNavigate } from "react-router";
 
 const openUser = (e, row) => {
@@ -33,6 +35,22 @@ const RegistryTable = () => {
 
   const goToForm = () => {
     navigate("/Form");
+  };
+
+  const descSort = () => {
+    fetch("http://localhost:8080/user/sortByDateDesc")
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+      });
+  };
+
+  const ascSort = () => {
+    fetch("http://localhost:8080/user/sortByDateAsc")
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+      });
   };
 
   useEffect(() => {
@@ -91,21 +109,33 @@ const RegistryTable = () => {
           HASTALAR TABLOSU
         </Typography>
       </Stack>
-      <Button
-        onClick={goToForm}
-        sx={{
-          width: 200,
-          height: 50,
-          marginLeft: "auto",
-          backgroundColor: "#d4a373",
-          color: "black",
-          marginTop: 2,
-          marginBottom: 3,
-        }}
-      >
-        Yeni Hasta Kaydı Ekle
-      </Button>
-
+      <Stack direction="row" justifyContent="flex-end">
+        <Button title="İlk kayıta göre sırala" onClick={ascSort}>
+          <SvgIcon
+            component={ArrowUpwardIcon}
+            sx={{ color: "#d4a373" }}
+          ></SvgIcon>
+        </Button>
+        <Button title="Son kayıta göre sırala" onClick={descSort}>
+          <SvgIcon
+            component={ArrowDownwardIcon}
+            sx={{ color: "#d4a373" }}
+          ></SvgIcon>
+        </Button>
+        <Button
+          onClick={goToForm}
+          sx={{
+            width: 200,
+            height: 50,
+            backgroundColor: "#d4a373",
+            color: "black",
+            marginTop: 2,
+            marginBottom: 3,
+          }}
+        >
+          Yeni Hasta Kaydı Ekle
+        </Button>
+      </Stack>
       <DataGrid columns={columns} rows={users} loading={!users.length} />
     </Stack>
   );
