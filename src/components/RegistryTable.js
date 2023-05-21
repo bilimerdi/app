@@ -65,7 +65,7 @@ const RegistryTable = () => {
     { field: "id", headerName: "Dosya No", width: 100 },
     { field: "fullName", headerName: "Hasta Ad Soyad", width: 200 },
     { field: "tc", headerName: "TC No", width: 150 },
-    { field: "diagnosis", headerName: "Tanı Başlığı", width: 200 },
+    { field: "diagnosis", headerName: "Tanı Başlığı", width: 300 },
     { field: "assistant", headerName: "Laborant Ad Soyad", width: 200 },
     {
       field: "Edit",
