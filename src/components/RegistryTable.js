@@ -76,7 +76,21 @@ const RegistryTable = () => {
     { field: "id", headerName: "Dosya No", width: 100 },
     { field: "fullName", headerName: "Hasta Ad Soyad", width: 160 },
     { field: "tc", headerName: "TC No", width: 150 },
-    { field: "diagnosis", headerName: "Tanı Başlığı", width: 250 },
+    { field: "diagnosis", headerName: "Tanı Başlığı", width: 220 },
+    {
+      field: "createdDate",
+      headerName: "Kayıt Tarihi",
+      width: 150,
+      valueGetter: (params) => {
+        const date = new Date(params.value);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return `${year}-${month < 10 ? "0" + month : month}-${
+          day < 10 ? "0" + day : day
+        }`;
+      },
+    },
     { field: "assistant", headerName: "Laborant Ad Soyad", width: 200 },
     {
       field: "Edit",
@@ -134,7 +148,7 @@ const RegistryTable = () => {
         </Stack>
         <Stack direction="row" justifyContent="flex-end">
           <TextField
-            sx={{ marginBottom: 2, marginTop: 2, marginBottom: 2 }}
+            sx={{ marginBottom: 2, marginTop: 2 }}
             fullWidth
             label="Search"
             title="Hasta ismi,TC ve Laborant ismi ile arama yapabilirsiniz!"
