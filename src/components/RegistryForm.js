@@ -9,6 +9,7 @@ const RegistryForm = () => {
   const [assistant, setAssistant] = useState("");
   const [detail, setDetail] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
+  const [editBool, setEditBool] = useState(false);
   const location = useLocation();
   const value = location.state?.value;
 
@@ -21,8 +22,31 @@ const RegistryForm = () => {
       setAssistant(value.assistant);
       setDetail(value.detail);
       setDiagnosis(value.diagnosis);
+      setEditBool(true);
     }
   }, [value]);
+
+  const editUser = () => {
+    const template = {
+      fullName: fullName,
+      tc: tc,
+      diagnosis: diagnosis,
+      detail: detail,
+      assistant: assistant,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(template),
+    };
+    fetch(`http://localhost:8080/user/edit/${value.id}`, requestOptions).then(
+      (response) =>
+        response.json().then(() => {
+          navigate("/");
+          window.location.reload();
+        })
+    );
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -126,20 +150,37 @@ const RegistryForm = () => {
             value={detail}
             required
           ></TextField>
-          <Button
-            type="submit"
-            sx={{
-              marginBottom: 2,
-              width: 100,
-              backgroundColor: "#faedcd",
-              color: "black",
-              marginLeft: "auto",
-              marginRight: "auto",
-              display: "block",
-            }}
-          >
-            Kaydet
-          </Button>
+          {editBool ? (
+            <Button
+              onClick={editUser}
+              sx={{
+                marginBottom: 2,
+                width: 100,
+                backgroundColor: "#faedcd",
+                color: "black",
+                marginLeft: "auto",
+                marginRight: "auto",
+                display: "block",
+              }}
+            >
+              Edit User
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              sx={{
+                marginBottom: 2,
+                width: 100,
+                backgroundColor: "#faedcd",
+                color: "black",
+                marginLeft: "auto",
+                marginRight: "auto",
+                display: "block",
+              }}
+            >
+              Kaydet
+            </Button>
+          )}
         </form>
       </Stack>
     </Stack>
