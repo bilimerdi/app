@@ -1,16 +1,28 @@
 import { Button, TextField, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./RegistryForm.css";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 const RegistryForm = () => {
-  const [fullName, setFullName] = useState();
-  const [tc, setTc] = useState();
-  const [assistant, setAssistant] = useState();
-  const [detail, setDetail] = useState();
-  const [diagnosis, setDiagnosis] = useState();
+  const [fullName, setFullName] = useState("");
+  const [tc, setTc] = useState("");
+  const [assistant, setAssistant] = useState("");
+  const [detail, setDetail] = useState("");
+  const [diagnosis, setDiagnosis] = useState("");
+  const location = useLocation();
+  const value = location.state?.value;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (value) {
+      setFullName(value.fullName);
+      setTc(value.tc);
+      setAssistant(value.assistant);
+      setDetail(value.detail);
+      setDiagnosis(value.diagnosis);
+    }
+  }, [value]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
