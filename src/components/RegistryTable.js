@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Icon1 from "../assets/hastane.jpg";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, Stack, SvgIcon, Typography } from "@mui/material";
+import { Button, Stack, SvgIcon, Typography, TextField } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -15,8 +14,19 @@ const editUser = (e, row) => {
 
 const RegistryTable = () => {
   const [users, setUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-  const pageSize = 5;
+
+  const filteredUsers = users.filter(
+    (user) =>
+      user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.assistant.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.tc.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   const deleteUser = (e, row) => {
     fetch(`http://localhost:8080/user/remove/${row.id}`, {
@@ -64,9 +74,9 @@ const RegistryTable = () => {
 
   const columns = [
     { field: "id", headerName: "Dosya No", width: 100 },
-    { field: "fullName", headerName: "Hasta Ad Soyad", width: 200 },
+    { field: "fullName", headerName: "Hasta Ad Soyad", width: 160 },
     { field: "tc", headerName: "TC No", width: 150 },
-    { field: "diagnosis", headerName: "Tanı Başlığı", width: 300 },
+    { field: "diagnosis", headerName: "Tanı Başlığı", width: 250 },
     { field: "assistant", headerName: "Laborant Ad Soyad", width: 200 },
     {
       field: "Edit",
@@ -123,6 +133,15 @@ const RegistryTable = () => {
           </Typography>
         </Stack>
         <Stack direction="row" justifyContent="flex-end">
+          <TextField
+            sx={{ marginBottom: 2, marginTop: 2, marginBottom: 2 }}
+            fullWidth
+            label="Search"
+            title="Hasta ismi,TC ve Laborant ismi ile arama yapabilirsiniz!"
+            value={searchTerm}
+            onChange={handleSearch}
+          ></TextField>
+
           <Button title="İlk kayıta göre sırala" onClick={ascSort}>
             <SvgIcon
               component={ArrowUpwardIcon}
@@ -139,7 +158,7 @@ const RegistryTable = () => {
             onClick={goToForm}
             sx={{
               width: 200,
-              height: 50,
+              height: 55,
               backgroundColor: "#d4a373",
               color: "black",
               marginTop: 2,
@@ -152,11 +171,9 @@ const RegistryTable = () => {
         <DataGrid
           sx={{ maxHeight: 400 }}
           columns={columns}
-          rows={users}
+          rows={filteredUsers}
           loading={!users.length}
           pagination={true}
-          pageSizeOptions={[1]}
-          pageSize={pageSize}
         />
       </Stack>
     </Stack>
