@@ -1,4 +1,4 @@
-import { Button, TextField, Stack, Typography } from "@mui/material";
+import { Button, TextField, Stack, Typography, Input } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import "./RegistryForm.css";
 import { useNavigate, useLocation } from "react-router";
@@ -10,6 +10,8 @@ const RegistryForm = () => {
   const [detail, setDetail] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
   const [editBool, setEditBool] = useState(false);
+  const [selectedFile, setSelectedFile] = useState();
+
   const location = useLocation();
   const value = location.state?.value;
 
@@ -48,6 +50,10 @@ const RegistryForm = () => {
     );
   };
 
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
@@ -63,6 +69,14 @@ const RegistryForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+    }).then((response) => response.json());
+
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    fetch("http://localhost:8080/user/image/upload", {
+      method: "POST",
+      body: formData,
     }).then((response) => response.json());
 
     navigate("/");
@@ -127,6 +141,7 @@ const RegistryForm = () => {
               onChange={(e) => setTc(e.target.value)}
               value={tc}
               required
+              error={tc.length !== 11} // Hata durumunu kontrol et
             ></TextField>
           </Stack>
           <TextField
@@ -150,6 +165,7 @@ const RegistryForm = () => {
             value={detail}
             required
           ></TextField>
+
           {editBool ? (
             <Button
               onClick={editUser}
@@ -166,20 +182,23 @@ const RegistryForm = () => {
               Edit User
             </Button>
           ) : (
-            <Button
-              type="submit"
-              sx={{
-                marginBottom: 2,
-                width: 100,
-                backgroundColor: "#faedcd",
-                color: "black",
-                marginLeft: "auto",
-                marginRight: "auto",
-                display: "block",
-              }}
-            >
-              Kaydet
-            </Button>
+            <Stack>
+              <Input type="file" onChange={handleFileChange}></Input>
+              <Button
+                type="submit"
+                sx={{
+                  marginBottom: 2,
+                  width: 100,
+                  backgroundColor: "#faedcd",
+                  color: "black",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  display: "block",
+                }}
+              >
+                Kaydet
+              </Button>
+            </Stack>
           )}
         </form>
       </Stack>

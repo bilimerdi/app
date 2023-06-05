@@ -1,15 +1,36 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const RegistryDetail = () => {
+  const [imageURL, setImageURL] = useState("");
+
   const location = useLocation();
   const value = location.state.value;
   const navigate = useNavigate();
+  console.log(value);
 
   const returnBack = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    const getImage = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/user/image/${value.id}`
+        );
+        if (response.ok) {
+          const url = URL.createObjectURL(await response.blob());
+          setImageURL(url);
+        }
+      } catch (error) {
+        console.error("Error retrieving image:", error);
+      }
+    };
+
+    getImage();
+  }, [value.id]);
 
   return (
     <div>
@@ -39,7 +60,9 @@ const RegistryDetail = () => {
             padding: 2,
             borderRadius: "2%",
           }}
-        ></Stack>
+        >
+          <img src={imageURL} alt="Hasta resmi"></img>
+        </Stack>
         <Stack
           sx={{
             height: 600,
