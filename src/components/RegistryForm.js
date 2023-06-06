@@ -80,6 +80,7 @@ const RegistryForm = () => {
     }).then((response) => response.json());
 
     navigate("/");
+    window.location.reload();
   };
 
   return (

@@ -8,7 +8,6 @@ const RegistryDetail = () => {
   const location = useLocation();
   const value = location.state.value;
   const navigate = useNavigate();
-  console.log(value);
 
   const returnBack = () => {
     navigate("/");
@@ -49,28 +48,33 @@ const RegistryDetail = () => {
       >
         <Stack
           sx={{
-            height: 600,
+            height: 500,
             width: 600,
             backgroundColor: "#faedcd",
             textAlign: "left",
-            marginLeft: 10,
-            marginTop: 5,
+            marginLeft: 1,
+            marginTop: 1,
             border: 1,
             borderColor: "black",
             padding: 2,
             borderRadius: "2%",
           }}
         >
-          <img src={imageURL} alt="Hasta resmi"></img>
+          <img
+            style={{ height: 400, width: 600 }}
+            src={imageURL}
+            alt="Hasta resmi"
+          ></img>
         </Stack>
         <Stack
           sx={{
-            height: 600,
+            height: 500,
             width: 600,
             backgroundColor: "#faedcd",
             textAlign: "left",
-            marginLeft: 10,
-            marginTop: 5,
+            marginLeft: 1,
+            marginRight: 1,
+            marginTop: 1,
             border: 1,
             borderColor: "black",
             padding: 2,
@@ -170,6 +174,7 @@ const RegistryDetail = () => {
           bottom: 0,
           right: 0,
           margin: 3,
+          marginRight: 1,
         }}
         onClick={returnBack}
       >
