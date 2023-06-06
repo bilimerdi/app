@@ -34,6 +34,10 @@ const RegistryTable = () => {
           .then((response) => response.json())
           .then((json) => setUsers(json));
       });
+
+    fetch(`http://localhost:8080/user/image/remove/${row.id}`, {
+      method: "DELETE",
+    });
   };
 
   const goToForm = () => {
