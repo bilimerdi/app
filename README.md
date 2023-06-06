@@ -49,14 +49,14 @@ Java'yı indirmek ve kurmak için aşağıdaki adımları izleyebilirsiniz:
 
 3. Frontend klasörüne gidin ve gerekli bağımlılıkları yüklemek için aşağıdaki komutu çalıştırın:
 
-cd app
-npm install
+cd app /
+npm install /
 npm start
 
 
 4. Backend klasörüne gidin ve projeyi çalıştırmak için aşağıdaki komutu çalıştırın:
 
-cd app_backend
+cd app_backend /
 mvn spring-boot:run
 
 
