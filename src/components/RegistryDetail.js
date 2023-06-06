@@ -143,7 +143,16 @@ const RegistryDetail = () => {
             >
               Tanı Detayları :
             </Typography>
-            <Typography sx={{ padding: 1 }}>{value.detail}</Typography>
+            <Typography
+              sx={{
+                padding: 1,
+                wordBreak: "break-word",
+                overflowY: "auto",
+                maxHeight: 110,
+              }}
+            >
+              {value.detail}
+            </Typography>
           </Stack>
           <Stack direction="column" sx={{ padding: 1 }}>
             <Typography
